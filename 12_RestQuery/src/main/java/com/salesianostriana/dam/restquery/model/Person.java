@@ -1,7 +1,10 @@
 package com.salesianostriana.dam.restquery.model;
 
+<<<<<<< HEAD
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.salesianostriana.dam.restquery.search.util.QueryableEntity;
+=======
+>>>>>>> 8c6dcff0262f85375aaeb94e3fe45b84d7eb188b
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,12 +13,16 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+<<<<<<< HEAD
 import java.lang.reflect.Field;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Random;
 import java.util.stream.Collectors;
+=======
+import java.time.LocalDate;
+>>>>>>> 8c6dcff0262f85375aaeb94e3fe45b84d7eb188b
 
 @Data
 @Entity
@@ -33,6 +40,7 @@ public class Person {
     private LocalDate hireDate;
     private boolean isMarried;
     private String gender;
+<<<<<<< HEAD
     private LocalDateTime dateTime;
 
 
@@ -61,5 +69,7 @@ public class Person {
 
 
 
+=======
+>>>>>>> 8c6dcff0262f85375aaeb94e3fe45b84d7eb188b
 
 }

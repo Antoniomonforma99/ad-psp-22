@@ -11,16 +11,24 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+<<<<<<< HEAD
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.Temporal;
 import java.util.Arrays;
+=======
+>>>>>>> 8c6dcff0262f85375aaeb94e3fe45b84d7eb188b
 
 @Log
 @AllArgsConstructor
 public class PersonSpecification implements Specification<Person> {
 
+<<<<<<< HEAD
+=======
+    // edad<25
+
+>>>>>>> 8c6dcff0262f85375aaeb94e3fe45b84d7eb188b
     private SearchCriteria searchCriteria;
 
     @Override
@@ -28,6 +36,7 @@ public class PersonSpecification implements Specification<Person> {
                                  CriteriaBuilder criteriaBuilder) {
         if (searchCriteria.getOperator().equalsIgnoreCase(">")) {
             return criteriaBuilder.greaterThanOrEqualTo(
+<<<<<<< HEAD
                     root.<String>get(searchCriteria.getKey()), searchCriteria.getValue().toString());
         } else if (searchCriteria.getOperator().equalsIgnoreCase("<")) {
             if (Arrays.stream(root.get(searchCriteria.getKey()).getJavaType().getInterfaces()).anyMatch(c -> c.getName() == "java.time.temporal.Temporal")) {
@@ -50,17 +59,39 @@ public class PersonSpecification implements Specification<Person> {
         } else if (searchCriteria.getOperator().equalsIgnoreCase(":")) {
             // TODO tratar tipos de datos "complicados" como booleanos HECHO, ¿listas?, ...
             if(root.get(searchCriteria.getKey()).getJavaType() == String.class) {
+=======
+                    root.get(searchCriteria.getKey()), searchCriteria.getValue().toString());
+        } else if (searchCriteria.getOperator().equalsIgnoreCase("<")) {
+            return criteriaBuilder.lessThanOrEqualTo(
+                    root.get(searchCriteria.getKey()), searchCriteria.getValue().toString());
+        } else if (searchCriteria.getOperator().equalsIgnoreCase(":")) {
+            log.info(root.get(searchCriteria.getKey()).getJavaType().toString());
+            if(root.get(searchCriteria.getKey()).getJavaType() == String.class) {
+                // TODO tratar tipos de datos "complicados" como booleanos, listas, ...
+>>>>>>> 8c6dcff0262f85375aaeb94e3fe45b84d7eb188b
                 return criteriaBuilder.like(
                         root.get(searchCriteria.getKey()), "%" + searchCriteria.getValue().toString() + "%"
                 );
             }
             // Esta parte es mejorable pero por ahora sirve
             else if (root.get(searchCriteria.getKey()).getJavaType().toString().equalsIgnoreCase("boolean")) {
+<<<<<<< HEAD
                 boolean value = searchCriteria.getValue().toString().equalsIgnoreCase("true") ? true : false; // Se podría adaptar a que se pase 0 o 1 en el query param
                 return criteriaBuilder.equal(root.get(searchCriteria.getKey()), value);
             }else {
                 return criteriaBuilder.equal(root.<String>get(searchCriteria.getKey()), searchCriteria.getValue());
             }
+=======
+                boolean value = searchCriteria.getValue().toString().equalsIgnoreCase("true") ? true : false;
+                return criteriaBuilder.equal(root.get(searchCriteria.getKey()), value);
+            }else {
+                return criteriaBuilder.equal(root.get(searchCriteria.getKey()), searchCriteria.getValue());
+            }
+
+
+
+
+>>>>>>> 8c6dcff0262f85375aaeb94e3fe45b84d7eb188b
         }
 
         return null;

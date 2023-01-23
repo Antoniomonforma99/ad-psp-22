@@ -2,7 +2,10 @@ package com.salesianostriana.dam.restquery.service;
 
 import com.salesianostriana.dam.restquery.model.Person;
 import com.salesianostriana.dam.restquery.repos.PersonRepository;
+<<<<<<< HEAD
 import com.salesianostriana.dam.restquery.search.spec.GenericSpecificationBuilder;
+=======
+>>>>>>> 8c6dcff0262f85375aaeb94e3fe45b84d7eb188b
 import com.salesianostriana.dam.restquery.search.spec.PersonSpecification;
 import com.salesianostriana.dam.restquery.search.spec.PersonSpecificationBuilder;
 import com.salesianostriana.dam.restquery.search.util.SearchCriteria;
@@ -23,8 +26,11 @@ public class PersonService {
     public Page<Person> search(List<SearchCriteria> params, Pageable pageable) {
         PersonSpecificationBuilder personSpecificationBuilder =
                 new PersonSpecificationBuilder(params);
+<<<<<<< HEAD
         //GenericSpecificationBuilder<Person> personSpecificationBuilder =
         //        new GenericSpecificationBuilder<>(params, Person.class);
+=======
+>>>>>>> 8c6dcff0262f85375aaeb94e3fe45b84d7eb188b
         Specification<Person> spec =  personSpecificationBuilder.build();
         return personRepository.findAll(spec, pageable);
     }

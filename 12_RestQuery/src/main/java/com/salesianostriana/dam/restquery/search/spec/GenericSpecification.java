@@ -1,6 +1,9 @@
 package com.salesianostriana.dam.restquery.search.spec;
 
+<<<<<<< HEAD
 import com.salesianostriana.dam.restquery.model.Person;
+=======
+>>>>>>> 8c6dcff0262f85375aaeb94e3fe45b84d7eb188b
 import com.salesianostriana.dam.restquery.search.util.SearchCriteria;
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
@@ -10,11 +13,14 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+<<<<<<< HEAD
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
+=======
+>>>>>>> 8c6dcff0262f85375aaeb94e3fe45b84d7eb188b
 
 @Log
 @AllArgsConstructor
@@ -23,6 +29,7 @@ public class GenericSpecification<T> implements Specification<T> {
     private SearchCriteria searchCriteria;
 
     @Override
+<<<<<<< HEAD
     public Predicate toPredicate(Root<T> root, CriteriaQuery<?> query,
                                  CriteriaBuilder criteriaBuilder) {
 
@@ -61,10 +68,24 @@ public class GenericSpecification<T> implements Specification<T> {
                     root.<String>get(key), value.toString());
         } else if (operator.equalsIgnoreCase(":")) {
             if(isString(type)) {
+=======
+    public Predicate toPredicate(Root<T> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
+        if (searchCriteria.getOperator().equalsIgnoreCase(">")) {
+            return criteriaBuilder.greaterThanOrEqualTo(
+                    root.get(searchCriteria.getKey()), searchCriteria.getValue().toString());
+        } else if (searchCriteria.getOperator().equalsIgnoreCase("<")) {
+            return criteriaBuilder.lessThanOrEqualTo(
+                    root.get(searchCriteria.getKey()), searchCriteria.getValue().toString());
+        } else if (searchCriteria.getOperator().equalsIgnoreCase(":")) {
+            log.info(root.get(searchCriteria.getKey()).getJavaType().toString());
+            if(root.get(searchCriteria.getKey()).getJavaType() == String.class) {
+                // TODO tratar tipos de datos "complicados" como booleanos, listas, ...
+>>>>>>> 8c6dcff0262f85375aaeb94e3fe45b84d7eb188b
                 return criteriaBuilder.like(
                         root.get(searchCriteria.getKey()), "%" + searchCriteria.getValue().toString() + "%"
                 );
             }
+<<<<<<< HEAD
             // Esta parte sigue siendo mejorable pero ahora está mejor :)
             else if (isBoolean(type)) {
                 //boolean value = searchCriteria.getValue().toString().equalsIgnoreCase("true") ? true : false; // Se podría adaptar a que se pase 0 o 1 en el query param
@@ -138,4 +159,20 @@ public class GenericSpecification<T> implements Specification<T> {
                 );
     }
 
+=======
+            // Esta parte es mejorable pero por ahora sirve
+            else if (root.get(searchCriteria.getKey()).getJavaType().toString().equalsIgnoreCase("boolean")) {
+                boolean value = searchCriteria.getValue().toString().equalsIgnoreCase("true") ? true : false;
+                return criteriaBuilder.equal(root.get(searchCriteria.getKey()), value);
+            }else {
+                return criteriaBuilder.equal(root.get(searchCriteria.getKey()), searchCriteria.getValue());
+            }
+
+
+
+
+        }
+        return null;
+    }
+>>>>>>> 8c6dcff0262f85375aaeb94e3fe45b84d7eb188b
 }
